@@ -11,5 +11,4 @@ function result = BF_isMember(elem,BF,k)
     end
     result = true;
     return
-
 end
