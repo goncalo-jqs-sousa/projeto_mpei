@@ -26,7 +26,9 @@ DATASET_TESTE2 = [];
 AUX_dataset1 = zeros(1,4);
 AUX_dataset2 = zeros(1,3);
 AUX_indices = [];
-Cat = ["Film & Animation", "Music", "Sports", "Comedy", "News & Politics", "Education", "Science & Tech"];
+Cat = ["Film & Animation","Music", "Sports", "Comedy", "News & Politics", "Education", "Science & Tech"];
+Cat1 = ["Film & Animation", "Sports", "Comedy", "Education"];
+Cat2 = ["Music", "News & Politics", "Science & Tech"];
 
 for i = 1:length(aux)
     if(aux{i,5} == 1)
@@ -150,14 +152,14 @@ descriptions_teste2 = DATASET_TESTE2(:,16);
 descriptions_treino1 = DATASET_TREINO1(:,16);
 descriptions_treino2 = DATASET_TREINO2(:,16);
 
-[documentos_treino1,palavras_unicas_treino1] = obter_palavras_unicas(titles_treino1, descriptions_treino1);
-[documentos_treino2,palavras_unicas_treino2] = obter_palavras_unicas(titles_treino2, descriptions_treino2);
-[documentos_teste1,palavras_unicas_teste1] = obter_palavras_unicas(titles_teste1, descriptions_teste1);
-[documentos_teste2,palavras_unicas_teste2] = obter_palavras_unicas(titles_teste2, descriptions_teste2);
+[documentos_treino1,palavras_unicas_treino1] = NB_obter_palavras_unicas(titles_treino1, descriptions_treino1);
+[documentos_treino2,palavras_unicas_treino2] = NB_obter_palavras_unicas(titles_treino2, descriptions_treino2);
+[documentos_teste1,palavras_unicas_teste1] = NB_obter_palavras_unicas(titles_teste1, descriptions_teste1);
+[documentos_teste2,palavras_unicas_teste2] = NB_obter_palavras_unicas(titles_teste2, descriptions_teste2);
 
 % Obter array de ocorrencia de palavras do documento (documento x palavras_unicas)
-OCORRENCIAS_treino1 = obter_num_ocorrencias(documentos_treino1, palavras_unicas_treino1);
-OCORRENCIAS_treino2 = obter_num_ocorrencias(documentos_treino2, palavras_unicas_treino2);
+OCORRENCIAS_treino1 = NB_obter_num_ocorrencias(documentos_treino1, palavras_unicas_treino1);
+OCORRENCIAS_treino2 = NB_obter_num_ocorrencias(documentos_treino2, palavras_unicas_treino2);
 
 % Obter classes dos documentos de treino
 classes_treino1 = [];
@@ -171,91 +173,46 @@ for i = 1:length(DATASET_TREINO2)
 end
 
 
-%% TODO: FINALIZAR COM CÁLCULOS
-palavras_aux_1 = {};
-palavras_aux_2 = {};
-res = [];
-prob_C1 = 1;
-prob_C2 = 1;
-pC1 = sum(classes_treino1 == 'Film & Animation') / length(classes_treino1);
-pC2 = sum(classes_treino1 == 'Comedy') / length(classes_treino1);
-
-docs_C1 = OCORRENCIAS_treino1(classes_treino1 == "Film & Animation",:);
-num_palavras_docs_C1 = sum(docs_C1);
-num = num_palavras_docs_C1 + 1;
-den = sum(sum(docs_C1)) + length(palavras_unicas_teste1);
-prob_palavra_dado_C1 = num/den;
-
-docs_C2 = OCORRENCIAS_treino1(classes_treino1 == "Comedy",:);
-num_palavras_docs_C2 = sum(docs_C2);
-num = num_palavras_docs_C2 + 1;
-den = sum(sum(docs_C2)) + length(palavras_unicas_teste1);
-prob_palavra_dado_C2 = num/den;
-
-for i=1:length(documentos_teste1)
-    if (isa(documentos_teste1{i}{2}, 'cell'))
-        for j = 1:length(documentos_teste1{i}{1})
-            if ~ ismember(documentos_teste1{i}{1}{j}, palavras_unicas_treino1)
-                % guarda indice i e j da palavra não pertencente às únicas
-                palavras_aux_1{end+1} = [i,j];
-            end
-        end
-        for j = 1:length(documentos_teste1{i}{2})
-            if ~ ismember(documentos_teste1{i}{2}{j}, palavras_unicas_treino1)
-                palavras_aux_2{end+1} = [i,j];
-            end
-        end
-    else
-        for j = 1:length(documentos_teste1{i}{1})
-            if ~ ismember(documentos_teste1{i}{1}{j}, palavras_unicas_treino1)
-                palavras_aux_1{end+1} = [i,j];
-            end
-        end
-    end
-end
-
-for i=1:length(palavras_aux_1)
-    j = palavras_aux_1{i};
-    documentos_teste1{j(1)}{1}{j(2)} = '';
-end
-
-for i=1:length(palavras_aux_2)
-    j = palavras_aux_2{i};
-    documentos_teste1{j(1)}{2}{j(2)} = '';
-end
-
-% TODO: ADICIONAR AS RESTANTES CATEGORIAS E COLOCAR CÓDIGO REPETITIVO EM
-%           FUNÇÕES
-for i=1:length(documentos_teste1)
-    prob_C1 = 1;
-    prob_C2 = 1;
-    if (isa(documentos_teste1{i}{2}, 'cell') )
-        for j = 1:length(documentos_teste1{i}{1})
-            if ~ strcmpi(string(documentos_teste1{i}{1}{j}), "")
-                prob_C1 = prob_C1 * prob_palavra_dado_C1(palavras_unicas_teste1 == documentos_teste1{i}{1}{j});
-                prob_C2 = prob_C2 * prob_palavra_dado_C2(palavras_unicas_teste1 == documentos_teste1{i}{1}{j});
-            end
-        end
-        for j = 1:length(documentos_teste1{i}{2})
-            if ~ strcmpi(string(documentos_teste1{i}{2}{j}), "")
-                prob_C1 = prob_C1 * prob_palavra_dado_C1(palavras_unicas_teste1 == documentos_teste1{i}{2}{j});
-                prob_C2 = prob_C2 * prob_palavra_dado_C2(palavras_unicas_teste1 == documentos_teste1{i}{2}{j});
-            end
-        end
-    else
-        for j = 1:length(documentos_teste1{i}{1})
-            if ~ strcmpi(string(documentos_teste1{i}{1}{j}), "")
-                prob_C1 = prob_C1 * prob_palavra_dado_C1(palavras_unicas_teste1 == documentos_teste1{i}{1}{j});
-                prob_C2 = prob_C2 * prob_palavra_dado_C2(palavras_unicas_teste1 == documentos_teste1{i}{1}{j});
-            end
-        end
-    end
-    prob_testeC1 = prob_C1 * pC1;
-    prob_testeC2 = prob_C2 * pC2;
-
-    res = [res; prob_testeC1 prob_testeC2;];
-end
+%% Naive Bayes - Cálculo da Classe dos Documentos de Teste
+res1 = NB_calculo_classes(classes_treino1, Cat1, OCORRENCIAS_treino1, documentos_teste1, palavras_unicas_teste1, palavras_unicas_treino1);
+res2 = NB_calculo_classes(classes_treino2, Cat2, OCORRENCIAS_treino2, documentos_teste2, palavras_unicas_teste2, palavras_unicas_treino2);
 
 
 %% SECÇÃO DE TESTES
+
+% RES1
+valor_max = zeros(60, 1); 
+indice_max = zeros(60, 1);
+teste1 = [];
+for i = 1:60
+    [valor_max(i), indice_max(i)] = max(res1(i, :));
+end
+
+for i = 1:length(indice_max)
+    if (string(DATASET_TESTE1{i,5}) == Cat1(indice_max(i)))
+        teste1(i) = 1;
+    else
+        teste1(i) = 0;
+    end
+end
+
+sum(teste1) / 60
+
+% RES2
+valor_max = zeros(60, 1); 
+indice_max = zeros(60, 1);
+teste2 = [];
+for i = 1:60
+    [valor_max(i), indice_max(i)] = max(res2(i, :));
+end
+
+for i = 1:length(indice_max)
+    if (string(DATASET_TESTE1{i,5}) == Cat2(indice_max(i)))
+        teste2(i) = 1;
+    else
+        teste2(i) = 0;
+    end
+end
+
+sum(teste2) / 60
 
