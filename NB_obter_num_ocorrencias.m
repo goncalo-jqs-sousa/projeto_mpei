@@ -2,7 +2,7 @@ function OCORRENCIA = NB_obter_num_ocorrencias(documentos,palavras_unicas)
 %UNTITLED2 Summary of this function goes here
 %   Detailed explanation goes here
 
-OCORRENCIA = zeros(length(documentos), length(palavras_unicas)); % 420 x 4330
+OCORRENCIA = zeros(length(documentos), length(palavras_unicas));
 
 for i = 1:length(documentos)
     rows1 = documentos{i}{1};
