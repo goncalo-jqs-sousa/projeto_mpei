@@ -1,5 +1,5 @@
 FILE_NAME         = "USvideos.csv";
-FILE_NAME_HISTORY = "USvideos_history.csv";
+FILE_NAME_HISTORY = "USvideos_short.csv";
 
 %
 % Implementação NB
