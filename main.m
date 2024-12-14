@@ -1,10 +1,13 @@
-FILE_NAME         = "USvideos.csv";
-FILE_NAME_HISTORY = "USvideos_short.csv";
+FILE_NAME         = "USvideos_short.csv";
+FILE_NAME_HISTORY = "USvideos_history.csv";
+
+%[classes_added, classes_corretas, DATASET_TESTE] = NB(Data, teste_row, treino_row, Cat, flag_tags, docs_col_n, perm);
 
 %
 % Implementação NB
 % Carregar dataset
 %
+t_begin = cputime;
 
 [n_samples,header,video_IDs,titles,channel_names,categories,tags,descriptions] = load_dataset(FILE_NAME);
 
@@ -52,7 +55,6 @@ for v = 1:n_samples
         BF_categories{BF_n_samples}    = categories{v};
         BF_tags{BF_n_samples}          = tags{v};
         BF_descriptions{BF_n_samples}  = descriptions{v};
-
     else
        watched_videos = watched_videos+1;
     end
@@ -72,7 +74,8 @@ fprintf(1,"Vídeos adicionados para recomendação: %d\n",non_watched_videos);
 [recommended_category,views] = calculate_category(hist_categories,hist_n_samples);
 
 fprintf(1,"Categoria recomendada: %s (%d)\n",recommended_category,views);
-
+t_end = cputime - t_begin;
+fprintf(1,"Calculado em %.3fs\n",t_end);
 %%
 %% Implementação MinHash
 %%
