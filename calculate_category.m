@@ -3,7 +3,7 @@ function [category,most_views] = calculate_category(hist_categories,hist_n_sampl
     hist_categories = cell2mat(hist_categories);
     cat_counter = zeros(5,1)'; % [1 10 17 25 0]
     cat_list = [1 10 17 25 0];
-    unknown_cat = 0;
+
     for h = 1:hist_n_samples
         if hist_categories(h) == cat_list(1)
             cat_counter(1) = cat_counter(1)+1;
