@@ -7,16 +7,16 @@ function [n_samples,header,video_IDs,titles,channel_names,categories,tags,descri
     Cat = ["Film & Animation", "Music", "Sports", "News & Politics"];
 
     for i = 1:length(Data)
-        if(double(Data{i,5}) == 1 & ~ ismissing(Data{i,16})) & strcmp(string(Data{i,7}), "[none]")
+        if(double(Data{i,5}) == 1 & ~ ismissing(Data{i,16})) & ~ strcmp(string(Data{i,7}), "[none]")
             % cat1 - Film & Animation
             Data{i,5} = Cat(1);
-        elseif(double(Data{i,5}) == 10 & ~ ismissing(Data{i,16})) & strcmp(string(Data{i,7}), "[none]")
+        elseif(double(Data{i,5}) == 10 & ~ ismissing(Data{i,16})) & ~ strcmp(string(Data{i,7}), "[none]")
             % cat10 - Music
             Data{i,5} = Cat(2);
-        elseif(double(Data{i,5}) == 17 & ~ ismissing(Data{i,16})) & strcmp(string(Data{i,7}), "[none]")
+        elseif(double(Data{i,5}) == 17 & ~ ismissing(Data{i,16})) & ~ strcmp(string(Data{i,7}), "[none]")
             % cat17 - Sports
             Data{i,5} = Cat(3);
-        elseif(double(Data{i,5}) == 25 & ~ ismissing(Data{i,16})) & strcmp(string(Data{i,7}), "[none]")
+        elseif(double(Data{i,5}) == 25 & ~ ismissing(Data{i,16})) & ~ strcmp(string(Data{i,7}), "[none]")
             % cat25 - News & Politics
             Data{i,5} = Cat(4);
         else
