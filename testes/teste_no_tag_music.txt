@@ -1,0 +1,18 @@
+
+linhas de teste = 400 e linhas de treino = 50
+recall: 0.813433; precision: 0.545000; F1: 0.652695
+-----
+
+ ----- Novo Teste -----
+
+linhas de teste = 400 e linhas de treino = 50
+recall: 0.872727; precision: 0.480000; F1: 0.619355
+-----
+
+ ----- Novo Teste -----
+
+linhas de teste = 400 e linhas de treino = 50
+recall: 0.702290; precision: 0.460000; F1: 0.555891
+-----
+
+ ----- Novo Teste -----
