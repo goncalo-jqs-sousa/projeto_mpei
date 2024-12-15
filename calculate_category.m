@@ -1,4 +1,4 @@
-function [category,most_views] = calculate_category(hist_categories,hist_n_samples)
+function [category,n_cat,most_views] = calculate_category(hist_categories,hist_n_samples,cat_list)
 
     hist_categories = cell2mat(hist_categories);
     cat_counter = zeros(5,1)'; % [1 10 17 25 0]
@@ -25,13 +25,18 @@ function [category,most_views] = calculate_category(hist_categories,hist_n_sampl
 
     if category_number == cat_list(1)
         category = "Film & Animation";
+         n_cat = cat_list(1);
     elseif category_number == cat_list(2)
         category = "Music";
+         n_cat = cat_list(2);
     elseif category_number == cat_list(3)
         category = "Sports";
+         n_cat = cat_list(3);
     elseif category_number == cat_list(4)
         category = "News & Politics";
+         n_cat = cat_list(4);
     else
         category = "undefined";
+         n_cat = cat_list(5);
     end
 end

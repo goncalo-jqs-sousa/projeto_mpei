@@ -92,7 +92,15 @@ clear descriptions;
 fprintf(1,"Vídeos já visualizados: %d\n",watched_videos);
 fprintf(1,"Vídeos adicionados para recomendação: %d\n",non_watched_videos);
 
-[recommended_category,views] = calculate_category(hist_categories,hist_n_samples);
+[recommended_category,category_number,views] = calculate_category(hist_categories,hist_n_samples);
+
+recommended_category_titles_from_history = [];
+
+for v = 1: hist_n_samples
+    if hist_categories{v} == category_number
+        recommended_category_titles_from_history = [recommended_category_titles_from_history hist_titles(v)]
+    end
+end
 
 fprintf(1,"Categoria recomendada: %s (%d)\n",recommended_category,views);
 BF_time = cputime - BF_t_begin;
@@ -101,3 +109,13 @@ fprintf(1,"Categoria calculada  em %.3f s",BF_time)
 %% Implementação MinHash
 %%
 
+% Parametros Minhash
+k_shingle = 5;
+k = 100;
+prime = 9876803;
+R = randi(prime,k,k_shingle);
+
+
+
+J = calcular_distancia_MinHash_shingle(recommended_category_titles_from_history...
+                                        ,k,k_shingles,R,prime)
