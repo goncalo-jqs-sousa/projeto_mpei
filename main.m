@@ -1,19 +1,32 @@
-FILE_NAME         = "USvideos_short.csv";
-FILE_NAME_HISTORY = "USvideos_history.csv";
+clear all;
+clc;
 
-%[classes_added, classes_corretas, DATASET_TESTE] = NB(Data, teste_row, treino_row, Cat, flag_tags, docs_col_n, perm);
+FILE_NAME         = "USvideos.csv";
+FILE_NAME_HISTORY = "USvideos_short.csv";
+Cat = [1, 10, 17, 25];
+
+[n_samples,header] = load_dataset(FILE_NAME, Cat, true);
+
+
+% load ('Dataset_historico', 'Data_hist');
+[hist_n_samples,hist_header,hist_video_IDs,...
+ hist_titles,hist_channel_names,hist_categories,...
+ hist_tags,hist_descriptions] = load_dataset(FILE_NAME_HISTORY, Cat, false);
 
 %
 % Implementação NB
+load("Dataset_reduzido.mat", 'Data');
+teste_row = 400;
+treino_row = 200;
+Cat = [10, 25];
+flag_tags = true;
+docs_col_n = 1;
+flag_perm = true;
+
+[irrelevante1,irrelevante2,video_IDs,titles,channel_names,categories,tags,descriptions]= NB(Data, 400, 50, Cat, true, 1, true);
 % Carregar dataset
 %
-BF_t_begin = cputime;
 
-[n_samples,header,video_IDs,titles,channel_names,categories,tags,descriptions] = load_dataset(FILE_NAME);
-
-[hist_n_samples,hist_header,hist_video_IDs,...
- hist_titles,hist_channel_names,hist_categories,...
- hist_tags,hist_descriptions] = load_dataset(FILE_NAME_HISTORY);
 
 % Parametros do BF
 N_SAMPLE_MULTIPLIER = 8;
@@ -55,6 +68,7 @@ for v = 1:n_samples
         BF_categories{BF_n_samples}    = categories{v};
         BF_tags{BF_n_samples}          = tags{v};
         BF_descriptions{BF_n_samples}  = descriptions{v};
+
     else
        watched_videos = watched_videos+1;
     end
@@ -74,8 +88,7 @@ fprintf(1,"Vídeos adicionados para recomendação: %d\n",non_watched_videos);
 [recommended_category,views] = calculate_category(hist_categories,hist_n_samples);
 
 fprintf(1,"Categoria recomendada: %s (%d)\n",recommended_category,views);
-BF_t_end = cputime - BF_t_begin;
-fprintf(1,"Calculado em %.3fs\n",t_end);
+
 %%
 %% Implementação MinHash
 %%

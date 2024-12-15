@@ -8,30 +8,30 @@ res = [];
 
 if length(documentos_teste{1}) == 2
     if length(Cat) == 4
-        pC1 = sum(classes_treino == Cat(1)) / length(classes_treino);
-        pC2 = sum(classes_treino == Cat(2)) / length(classes_treino);
-        pC3 = sum(classes_treino == Cat(3)) / length(classes_treino);
-        pC4 = sum(classes_treino == Cat(4)) / length(classes_treino);
+        pC1 = sum(double(classes_treino) == Cat(1)) / length(classes_treino);
+        pC2 = sum(double(classes_treino) == Cat(2)) / length(classes_treino);
+        pC3 = sum(double(classes_treino) == Cat(3)) / length(classes_treino);
+        pC4 = sum(double(classes_treino) == Cat(4)) / length(classes_treino);
 
-        docs_C1 = OCORRENCIAS_treino(classes_treino == Cat(1),:);
+        docs_C1 = OCORRENCIAS_treino(double(classes_treino) == Cat(1),:);
         num_palavras_docs_C1 = sum(docs_C1);
         num = num_palavras_docs_C1 + 1;
         den = sum(sum(docs_C1)) + length(palavras_unicas_treino);
         prob_palavra_dado_C1 = num/den;
 
-        docs_C2 = OCORRENCIAS_treino(classes_treino == Cat(2),:);
+        docs_C2 = OCORRENCIAS_treino(double(classes_treino) == Cat(2),:);
         num_palavras_docs_C2 = sum(docs_C2);
         num = num_palavras_docs_C2 + 1;
         den = sum(sum(docs_C2)) + length(palavras_unicas_treino);
         prob_palavra_dado_C2 = num/den;
 
-        docs_C3 = OCORRENCIAS_treino(classes_treino == Cat(3),:);
+        docs_C3 = OCORRENCIAS_treino(double(classes_treino) == Cat(3),:);
         num_palavras_docs_C3 = sum(docs_C3);
         num = num_palavras_docs_C3 + 1;
         den = sum(sum(docs_C3)) + length(palavras_unicas_treino);
         prob_palavra_dado_C3 = num/den;
 
-        docs_C4 = OCORRENCIAS_treino(classes_treino == Cat(4),:);
+        docs_C4 = OCORRENCIAS_treino(double(classes_treino) == Cat(4),:);
         num_palavras_docs_C4 = sum(docs_C4);
         num = num_palavras_docs_C4 + 1;
         den = sum(sum(docs_C4)) + length(palavras_unicas_treino);
@@ -94,23 +94,23 @@ if length(documentos_teste{1}) == 2
             res = [res; prob_testeC1 prob_testeC2 prob_testeC3 prob_testeC4;];
         end
     elseif length(Cat) == 3
-        pC1 = sum(classes_treino == Cat(1)) / length(classes_treino);
-        pC2 = sum(classes_treino == Cat(2)) / length(classes_treino);
-        pC3 = sum(classes_treino == Cat(3)) / length(classes_treino);
+        pC1 = sum(double(classes_treino) == Cat(1)) / length(classes_treino);
+        pC2 = sum(double(classes_treino) == Cat(2)) / length(classes_treino);
+        pC3 = sum(double(classes_treino) == Cat(3)) / length(classes_treino);
 
-        docs_C1 = OCORRENCIAS_treino(classes_treino == Cat(1),:);
+        docs_C1 = OCORRENCIAS_treino(double(classes_treino) == Cat(1),:);
         num_palavras_docs_C1 = sum(docs_C1);
         num = num_palavras_docs_C1 + 1;
         den = sum(sum(docs_C1)) + length(palavras_unicas_treino);
         prob_palavra_dado_C1 = num/den;
 
-        docs_C2 = OCORRENCIAS_treino(classes_treino == Cat(2),:);
+        docs_C2 = OCORRENCIAS_treino(double(classes_treino) == Cat(2),:);
         num_palavras_docs_C2 = sum(docs_C2);
         num = num_palavras_docs_C2 + 1;
         den = sum(sum(docs_C2)) + length(palavras_unicas_treino);
         prob_palavra_dado_C2 = num/den;
 
-        docs_C3 = OCORRENCIAS_treino(classes_treino == Cat(3),:);
+        docs_C3 = OCORRENCIAS_treino(double(classes_treino) == Cat(3),:);
         num_palavras_docs_C3 = sum(docs_C3);
         num = num_palavras_docs_C3 + 1;
         den = sum(sum(docs_C3)) + length(palavras_unicas_treino);
@@ -169,16 +169,16 @@ if length(documentos_teste{1}) == 2
             res = [res; prob_testeC1 prob_testeC2 prob_testeC3;];
         end
     elseif length(Cat) == 2
-        pC1 = sum(classes_treino == Cat(1)) / length(classes_treino);
-        pC2 = sum(classes_treino == Cat(2)) / length(classes_treino);
+        pC1 = sum(double(classes_treino) == Cat(1)) / length(classes_treino);
+        pC2 = sum(double(classes_treino) == Cat(2)) / length(classes_treino);
 
-        docs_C1 = OCORRENCIAS_treino(classes_treino == Cat(1),:);
+        docs_C1 = OCORRENCIAS_treino(double(classes_treino) == Cat(1),:);
         num_palavras_docs_C1 = sum(docs_C1);
         num = num_palavras_docs_C1 + 1;
         den = sum(sum(docs_C1)) + length(palavras_unicas_treino);
         prob_palavra_dado_C1 = num/den;
 
-        docs_C2 = OCORRENCIAS_treino(classes_treino == Cat(2),:);
+        docs_C2 = OCORRENCIAS_treino(double(classes_treino) == Cat(2),:);
         num_palavras_docs_C2 = sum(docs_C2);
         num = num_palavras_docs_C2 + 1;
         den = sum(sum(docs_C2)) + length(palavras_unicas_treino);
@@ -235,30 +235,30 @@ if length(documentos_teste{1}) == 2
     end
 else
     if length(Cat) == 4
-        pC1 = sum(classes_treino == Cat(1)) / length(classes_treino);
-        pC2 = sum(classes_treino == Cat(2)) / length(classes_treino);
-        pC3 = sum(classes_treino == Cat(3)) / length(classes_treino);
-        pC4 = sum(classes_treino == Cat(4)) / length(classes_treino);
+        pC1 = sum(double(classes_treino) == Cat(1)) / length(classes_treino);
+        pC2 = sum(double(classes_treino) == Cat(2)) / length(classes_treino);
+        pC3 = sum(double(classes_treino) == Cat(3)) / length(classes_treino);
+        pC4 = sum(double(classes_treino) == Cat(4)) / length(classes_treino);
 
-        docs_C1 = OCORRENCIAS_treino(classes_treino == Cat(1),:);
+        docs_C1 = OCORRENCIAS_treino(double(classes_treino) == Cat(1),:);
         num_palavras_docs_C1 = sum(docs_C1);
         num = num_palavras_docs_C1 + 1;
         den = sum(sum(docs_C1)) + length(palavras_unicas_treino);
         prob_palavra_dado_C1 = num/den;
 
-        docs_C2 = OCORRENCIAS_treino(classes_treino == Cat(2),:);
+        docs_C2 = OCORRENCIAS_treino(double(classes_treino) == Cat(2),:);
         num_palavras_docs_C2 = sum(docs_C2);
         num = num_palavras_docs_C2 + 1;
         den = sum(sum(docs_C2)) + length(palavras_unicas_treino);
         prob_palavra_dado_C2 = num/den;
 
-        docs_C3 = OCORRENCIAS_treino(classes_treino == Cat(3),:);
+        docs_C3 = OCORRENCIAS_treino(double(classes_treino) == Cat(3),:);
         num_palavras_docs_C3 = sum(docs_C3);
         num = num_palavras_docs_C3 + 1;
         den = sum(sum(docs_C3)) + length(palavras_unicas_treino);
         prob_palavra_dado_C3 = num/den;
 
-        docs_C4 = OCORRENCIAS_treino(classes_treino == Cat(4),:);
+        docs_C4 = OCORRENCIAS_treino(double(classes_treino) == Cat(4),:);
         num_palavras_docs_C4 = sum(docs_C4);
         num = num_palavras_docs_C4 + 1;
         den = sum(sum(docs_C4)) + length(palavras_unicas_treino);
@@ -338,23 +338,23 @@ else
             res = [res; prob_testeC1 prob_testeC2 prob_testeC3 prob_testeC4;];
         end
     elseif length(Cat) == 3
-        pC1 = sum(classes_treino == Cat(1)) / length(classes_treino);
-        pC2 = sum(classes_treino == Cat(2)) / length(classes_treino);
-        pC3 = sum(classes_treino == Cat(3)) / length(classes_treino);
+        pC1 = sum(double(classes_treino) == Cat(1)) / length(classes_treino);
+        pC2 = sum(double(classes_treino) == Cat(2)) / length(classes_treino);
+        pC3 = sum(double(classes_treino) == Cat(3)) / length(classes_treino);
 
-        docs_C1 = OCORRENCIAS_treino(classes_treino == Cat(1),:);
+        docs_C1 = OCORRENCIAS_treino(double(classes_treino) == Cat(1),:);
         num_palavras_docs_C1 = sum(docs_C1);
         num = num_palavras_docs_C1 + 1;
         den = sum(sum(docs_C1)) + length(palavras_unicas_treino);
         prob_palavra_dado_C1 = num/den;
 
-        docs_C2 = OCORRENCIAS_treino(classes_treino == Cat(2),:);
+        docs_C2 = OCORRENCIAS_treino(double(classes_treino) == Cat(2),:);
         num_palavras_docs_C2 = sum(docs_C2);
         num = num_palavras_docs_C2 + 1;
         den = sum(sum(docs_C2)) + length(palavras_unicas_treino);
         prob_palavra_dado_C2 = num/den;
 
-        docs_C3 = OCORRENCIAS_treino(classes_treino == Cat(3),:);
+        docs_C3 = OCORRENCIAS_treino(double(classes_treino) == Cat(3),:);
         num_palavras_docs_C3 = sum(docs_C3);
         num = num_palavras_docs_C3 + 1;
         den = sum(sum(docs_C3)) + length(palavras_unicas_treino);
@@ -429,16 +429,16 @@ else
             res = [res; prob_testeC1 prob_testeC2 prob_testeC3;];
         end
     elseif length(Cat) == 2
-        pC1 = sum(classes_treino == Cat(1)) / length(classes_treino);
-        pC2 = sum(classes_treino == Cat(2)) / length(classes_treino);
+        pC1 = sum(double(classes_treino) == Cat(1)) / length(classes_treino);
+        pC2 = sum(double(classes_treino) == Cat(2)) / length(classes_treino);
 
-        docs_C1 = OCORRENCIAS_treino(classes_treino == Cat(1),:);
+        docs_C1 = OCORRENCIAS_treino(double(classes_treino) == Cat(1),:);
         num_palavras_docs_C1 = sum(docs_C1);
         num = num_palavras_docs_C1 + 1;
         den = sum(sum(docs_C1)) + length(palavras_unicas_treino);
         prob_palavra_dado_C1 = num/den;
 
-        docs_C2 = OCORRENCIAS_treino(classes_treino == Cat(2),:);
+        docs_C2 = OCORRENCIAS_treino(double(classes_treino) == Cat(2),:);
         num_palavras_docs_C2 = sum(docs_C2);
         num = num_palavras_docs_C2 + 1;
         den = sum(sum(docs_C2)) + length(palavras_unicas_treino);
@@ -478,6 +478,8 @@ else
             j = palavras_aux_3{i};
             documentos_teste{j(1)}{3}{j(2)} = '';
         end
+
+        csvwrite('colunas_NB_2_Ocorrencias.csv', prob_palavra_dado_C1);
 
         for i=1:length(documentos_teste)
             prob_C1 = 1;

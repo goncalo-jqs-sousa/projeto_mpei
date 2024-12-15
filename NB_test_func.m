@@ -14,9 +14,16 @@ if id == -1
     error('Failed to open file: %s', nome_fich);
 end
 
+try
+    fprintf(id, "\n ----- Novo Teste -----\n");
+catch e
+    fclose(id);
+    rethrow(e);
+end
+
 for j = 1:length(teste_row)
     for k = 1:length(treino_row)
-        [classes_added, classes_corretas]= NB(Data, teste_row(j), treino_row(k), Cat, flag_tags, docs_col_n, 0);
+        [classes_added, classes_corretas] = NB(Data, teste_row(j), treino_row(k), Cat, flag_tags, docs_col_n, false);
         for i = 1:height(classes_added)
             if strcmp(string(classes_added{i}), string(classes_corretas(i))) & strcmp(string(classes_added{i}), string(vp_str))
                 confusion_M(1) = confusion_M(1) + 1;    %tp
@@ -42,12 +49,6 @@ for j = 1:length(teste_row)
             rethrow(e);
         end
     end
-end
-try
-    fprintf(id, "\n ----- Novo Teste -----\n");
-catch e
-    fclose(id);
-    rethrow(e);
 end
 
 fclose(id);
