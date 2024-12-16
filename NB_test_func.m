@@ -1,4 +1,4 @@
-function [] = NB_test_func(Data, Cat, vp_str, teste_row, treino_row, flag_tags, docs_col_n, nome_fich)
+function [] = NB_test_func(Data, Cat, vp_str, teste_row, treino_row, flag_tag, nome_fich, n_max_word, flag_no_descript)
 % Testes do Naive Bayes (utiliza a matriz de confusão para obter recall, precision e F1) 
 %   TODO: EXPLICAR ARGUMENTOS
 
@@ -23,7 +23,7 @@ end
 
 for j = 1:length(teste_row)
     for k = 1:length(treino_row)
-        [classes_added, classes_corretas] = NB(Data, teste_row(j), treino_row(k), Cat, flag_tags, docs_col_n, false);
+        [classes_added, classes_corretas] = NB(Data, teste_row(j), treino_row(k), Cat, flag_tag, false, n_max_word, flag_no_descript);
         for i = 1:height(classes_added)
             if strcmp(string(classes_added{i}), string(classes_corretas(i))) & strcmp(string(classes_added{i}), string(vp_str))
                 confusion_M(1) = confusion_M(1) + 1;    %tp

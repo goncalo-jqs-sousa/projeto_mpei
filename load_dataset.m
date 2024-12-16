@@ -1,4 +1,4 @@
-function [n_samples,header,video_IDs,titles,channel_names,categories,tags,descriptions] = load_dataset(filename, Cat, flag_save)
+function [n_samples,header,video_IDs,titles,channel_names,categories,tags,descriptions] = load_dataset(filename, flag_save)
     Dataset = readcell(filename);
     header = Dataset(1,:);
     Data = Dataset(2:end,:);
@@ -39,7 +39,7 @@ function [n_samples,header,video_IDs,titles,channel_names,categories,tags,descri
     AUX_indices = sort(AUX_indices, 'descend');
     Calc_ind = sort(Calc_ind, 'descend');
 
-    % Remover rows do dataset e criar Calc_cat
+    % Remover rows do dataset
     i = 1;
     j = 1;
     while (i < length(AUX_indices)+1 & j < length(Calc_ind)+1)
@@ -52,8 +52,10 @@ function [n_samples,header,video_IDs,titles,channel_names,categories,tags,descri
             i = i + 1;
         end
     end
-
     
+    % input i é irrelevante
+    [irrelevante1,irrelevante2,irrelevante3,irrelevante4, Data] = NB_obter_palavras_unicas(true,false,i, i, i, Data);
+
     video_IDs = Data(:,1);
     n_samples = length(video_IDs);
     

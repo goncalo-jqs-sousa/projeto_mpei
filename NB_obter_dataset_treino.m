@@ -10,7 +10,7 @@ for i = 1:height(Dataset)
         if (double(Dataset{i,5}) == Cat(j) && Aux_dataset(j) < Total_rows/length(Cat) )
             dataset_treino = [dataset_treino;Dataset(i,:)];
             Aux_dataset(j) = Aux_dataset(j) + 1;
-            classes_treino = [classes_treino; categorical(Dataset{i,5})];
+            classes_treino = [classes_treino; Dataset{i,5}];
         end
     end
 end

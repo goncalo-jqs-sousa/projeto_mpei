@@ -3,16 +3,15 @@ clc;
 
 FILE_NAME         = "USvideos.csv";
 FILE_NAME_HISTORY = "USvideos_short.csv";
-Cat = [1, 10, 17, 25];
 
-[n_samples,header] = load_dataset(FILE_NAME, Cat, true);
+[n_samples,header] = load_dataset(FILE_NAME, true);
 
 load_t_begin = cputime;
 % load ('Dataset_historico', 'Data_hist');
 [hist_n_samples,hist_header,hist_video_IDs,...
  hist_titles,hist_channel_names,hist_categories,...
- hist_tags,hist_descriptions] = load_dataset(FILE_NAME_HISTORY, Cat, false);
-load_time = cputime - Load_t_begin;
+ hist_tags,hist_descriptions] = load_dataset(FILE_NAME_HISTORY, false);
+load_time = cputime - load_t_begin;
 fprintf(1,"Dataset carregado em %.3f s",load_time)
 
 NB_t_begin = cputime;
@@ -25,8 +24,10 @@ Cat = [10, 25];
 flag_tags = true;
 docs_col_n = 1;
 flag_perm = true;
+n_max_word = 40;
+flag_no_descript = false;
 
-[irrelevante1,irrelevante2,video_IDs,titles,channel_names,categories,tags,descriptions]= NB(Data, 400, 50, Cat, true, 1, true);
+[irrelevante1,irrelevante2,video_IDs,titles,channel_names,categories,tags,descriptions]= NB(Data, teste_row, treino_row, Cat, flag_tags, flag_perm, n_max_word, flag_no_descript);
 % Carregar dataset
 %
 

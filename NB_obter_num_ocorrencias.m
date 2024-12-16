@@ -1,109 +1,61 @@
-function [OCORRENCIA, palavras_unicas_treino] = NB_obter_num_ocorrencias(documentos,palavras_unicas, docs_col_n)
+function [OCORRENCIA_C1, OCORRENCIA_C2, palavras_unicas_treino] = NB_obter_num_ocorrencias(documentosC1,documentosC2,palavras_unicasC1,palavras_unicasC2)
 %UNTITLED2 Summary of this function goes here
 %   Detailed explanation goes here
+OCORRENCIA_C1 = zeros(length(documentosC1), length(palavras_unicasC1));
+OCORRENCIA_C2 = zeros(length(documentosC2), length(palavras_unicasC2));
+palavras_unicas_treino = palavras_unicasC1;
 
-OCORRENCIA = zeros(length(documentos), length(palavras_unicas));
-palavras_unicas_treino = palavras_unicas;
+if length(documentosC1{1}) == 2
+    for i = 1:length(documentosC1)
+        rows1 = documentosC1{i}{1};
+        rows2 = documentosC1{i}{2};
 
-if docs_col_n > 1
-    % docs_col_n palavras em pelo menos 1 documento
-    if length(documentos{1}) == 2
-        for i = 1:length(documentos)
-            rows1 = documentos{i}{1};
-            rows2 = documentos{i}{2};
-
-            for j = 1:length(palavras_unicas)
-                aux = palavras_unicas{j};
-                num_ocorrencias = sum(strcmpi(rows1, aux));
-                num_ocorrencias = num_ocorrencias + sum(strcmpi(rows2, aux));
-                OCORRENCIA(i, j) = num_ocorrencias;
+        for j = 1:length(palavras_unicasC1)
+            aux = palavras_unicasC1{j};
+            num_ocorrencias = sum(strcmpi(rows1, aux));
+            num_ocorrencias = num_ocorrencias + sum(strcmpi(rows2, aux));
+            if num_ocorrencias > 1
+                num_ocorrencias = 1;
             end
+            OCORRENCIA_C1(i, j) = num_ocorrencias;
         end
-
-        % Ficar só com palavras com n palavras em pelo menos 1 documento
-        aux = [];
-        OCORRENCIA_aux = OCORRENCIA;
-        % iterar pelas linhas e colunas e ficar com colunas com n palavras para pelo menos 1 linha
-        for i = 1:height(OCORRENCIA_aux)
-            for j = 1:width(OCORRENCIA_aux)
-                if OCORRENCIA_aux(i,j) > docs_col_n
-                    aux = [aux j];
-                end
-            end
-        end
-    else
-        for i = 1:length(documentos)
-            rows1 = documentos{i}{1};
-            rows2 = documentos{i}{2};
-            rows3 = documentos{i}{3};
-
-            for j = 1:length(palavras_unicas)
-                aux = palavras_unicas{j};
-                num_ocorrencias = sum(strcmpi(rows1, aux));
-                num_ocorrencias = num_ocorrencias + sum(strcmpi(rows2, aux));
-                num_ocorrencias = num_ocorrencias + sum(strcmpi(rows3, aux));
-                OCORRENCIA(i, j) = num_ocorrencias;
-            end
-        end
-
-        % Ficar só com palavras com n palavras em pelo menos 1 documento
-        aux = [];
-        OCORRENCIA_aux = OCORRENCIA;
-        % iterar pelas linhas e colunas e ficar com colunas com n palavras para pelo menos 1 linha
-        for i = 1:height(OCORRENCIA_aux)
-            for j = 1:width(OCORRENCIA_aux)
-                if OCORRENCIA_aux(i,j) > docs_col_n
-                    aux = [aux j];
-                end
-            end
-        end 
-
-        aux = unique(aux);
-        OCORRENCIA = [];
-        palavras_unicas_treino = [];
-
-        for j = 1:length(aux)
-            palavras_unicas_treino = [palavras_unicas_treino palavras_unicas(aux(j))];
-            OCORRENCIA = [OCORRENCIA OCORRENCIA_aux(:,aux(j))];
-        end
-        palavras_unicas_treino = unique(palavras_unicas_treino);
     end
 else
-    % BINARY NB
-    if length(documentos{1}) == 2
-        for i = 1:length(documentos)
-            rows1 = documentos{i}{1};
-            rows2 = documentos{i}{2};
+    for i = 1:length(documentosC1)
+        rows1 = documentosC1{i}{1};
+        rows2 = documentosC1{i}{2};
+        rows3 = documentosC1{i}{3};
 
-            for j = 1:length(palavras_unicas)
-                aux = palavras_unicas{j};
-                num_ocorrencias = sum(strcmpi(rows1, aux));
-                num_ocorrencias = num_ocorrencias + sum(strcmpi(rows2, aux));
-                if num_ocorrencias > 1
-                    num_ocorrencias = 1;
-                end
-                OCORRENCIA(i, j) = num_ocorrencias;
+
+        for j = 1:length(palavras_unicasC1)
+            aux = palavras_unicasC1{j};
+            num_ocorrencias = sum(strcmpi(rows1, aux));
+            num_ocorrencias = num_ocorrencias + sum(strcmpi(rows2, aux));
+            num_ocorrencias = num_ocorrencias + sum(strcmpi(rows3, aux));
+            if num_ocorrencias > 1
+                num_ocorrencias = 1;
             end
+            OCORRENCIA_C1(i, j) = num_ocorrencias;
         end
-    else
-        for i = 1:length(documentos)
-            rows1 = documentos{i}{1};
-            rows2 = documentos{i}{2};
-            rows3 = documentos{i}{3};
+    end
+    for i = 1:length(documentosC2)
+        rows1 = documentosC2{i}{1};
+        rows2 = documentosC2{i}{2};
+        rows3 = documentosC2{i}{3};
 
 
-            for j = 1:length(palavras_unicas)
-                aux = palavras_unicas{j};
-                num_ocorrencias = sum(strcmpi(rows1, aux));
-                num_ocorrencias = num_ocorrencias + sum(strcmpi(rows2, aux));
-                num_ocorrencias = num_ocorrencias + sum(strcmpi(rows3, aux));
-                if num_ocorrencias > 1
-                    num_ocorrencias = 1;
-                end
-                OCORRENCIA(i, j) = num_ocorrencias;
+        for j = 1:length(palavras_unicasC2)
+            aux = palavras_unicasC2{j};
+            num_ocorrencias = sum(strcmpi(rows1, aux));
+            num_ocorrencias = num_ocorrencias + sum(strcmpi(rows2, aux));
+            num_ocorrencias = num_ocorrencias + sum(strcmpi(rows3, aux));
+            if num_ocorrencias > 1
+                num_ocorrencias = 1;
             end
+            OCORRENCIA_C2(i, j) = num_ocorrencias;
         end
     end
 end
+
 
 end
