@@ -1,12 +1,17 @@
 clear all;
 clc;
+dbstop if error;
 
 FILE_NAME         = "USvideos.csv";
-FILE_NAME_HISTORY = "USvideos_short.csv";
+FILE_NAME_HISTORY = "USvideos_history.csv";
 
 load_t_begin = cputime;
 [n_samples,header] = load_dataset(FILE_NAME, true);
+
+%load("Dataset_reduzido.mat", 'Data');
+%load ('Dataset_historico', 'Data_hist');
 % load ('Dataset_historico', 'Data_hist');
+
 [hist_n_samples,hist_header,hist_video_IDs,...
  hist_titles,hist_channel_names,hist_categories,...
  hist_tags,hist_descriptions] = load_dataset(FILE_NAME_HISTORY, false);
@@ -25,7 +30,8 @@ flag_perm = true;
 n_max_word = 40;
 flag_no_descript = false;
 
-[irrelevante1,irrelevante2,video_IDs,titles,channel_names,categories,tags,descriptions]= NB(Data, teste_row, treino_row, Cat, flag_tags, flag_perm, n_max_word, flag_no_descript);
+[irrelevante1,irrelevante2,video_IDs,titles,channel_names,categories,tags,descriptions]=...
+    NB(Data, teste_row, treino_row, Cat, flag_tags, flag_perm, n_max_word, flag_no_descript);
 % Carregar dataset
 
 NB_time = cputime - NB_t_begin;
@@ -75,7 +81,6 @@ for v = 1:n_samples
         BF_categories{BF_n_samples}    = categories{v};
         BF_tags{BF_n_samples}          = tags{v};
         BF_descriptions{BF_n_samples}  = descriptions{v};
-
     else
        watched_videos = watched_videos+1;
     end
@@ -94,11 +99,11 @@ fprintf(1,"Vídeos adicionados para recomendação: %d\n",non_watched_videos);
 
 [recommended_category,category_number,views] = calculate_category(hist_categories,hist_n_samples);
 
-recommended_category_titles_from_history = [];
+recommended_category_titles_from_history = {};
 
 for v = 1: hist_n_samples
     if hist_categories{v} == category_number
-        recommended_category_titles_from_history = [recommended_category_titles_from_history hist_titles(v)]
+        recommended_category_titles_from_history{end+1} =  hist_titles(v);
     end
 end
 
@@ -109,11 +114,8 @@ fprintf(1,"Categoria calculada  em %.3fs\n",BF_time)
 % Implementação MinHash
 
 % Parametros Minhash
-k_shingles = 5;
-k = 50 ;
+k_shingle = 3;
+k = 100;
 prime = 9876803;
 
-R = randi(prime,k,k_shingles);
-
-J = calcular_distancia_MinHash_shingle(recommended_category_titles_from_history...
-                                        ,k,R,prime)
+distancias =  MH(recommended_category_titles_from_history,k_shingle,k,prime)

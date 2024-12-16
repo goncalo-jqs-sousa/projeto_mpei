@@ -1,14 +1,14 @@
-function [J,Assinaturas] = calcular_distancia_MinHash_shingle(recommended_category_titles_from_history,k,R,prime)
-    Nu = length(recommended_category_titles_from_history);
+function [J,Assinaturas] = calcular_distancia_MinHash_shingle(Set,k,R,prime)
+    Nu = length(Set);
     J = zeros(Nu);
-    Assinaturas = zeros(k,length(recommended_category_titles_from_history));
+    Assinaturas = zeros(k,length(Set));
     % calcular assinaturas    
     for i = 1:k
-        for c = 1:length(recommended_category_titles_from_history)
-            conjunto = recommended_category_titles_from_history(c);
+        for c = 1:length(Set)
+            conjunto = Set{c};
             hash_codes = zeros(length(conjunto),1);
             for e = 1:length(conjunto)
-                shingle = conjunto(e)
+                shingle = conjunto{e}
                 hc = hash_function_shingle(shingle,i,R,prime);
                 hash_codes(e) = hc;
             end
@@ -17,7 +17,6 @@ function [J,Assinaturas] = calcular_distancia_MinHash_shingle(recommended_catego
         end
     end
     for n1= 1:Nu
-        waitbar(n1/Nu,h);
         for n2= n1+1:Nu
             % Adicionar código aqui
             assinatura1 = Assinaturas(:,n1);

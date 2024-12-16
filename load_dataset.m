@@ -14,7 +14,7 @@ function [n_samples,header,video_IDs,titles,channel_names,categories,tags,descri
     end
     v2 = 30 - v1;
 
-    for i = 1:length(Data)
+    for i = 1:height(Data)
         if(double(Data{i,5}) == 1 & ~ ismissing(Data{i,16})) & ~ strcmp(string(Data{i,7}), "[none]")
             % cat1 - Film & Animation
         elseif(double(Data{i,5}) == 10 & ~ ismissing(Data{i,16})) & ~ strcmp(string(Data{i,7}), "[none]")
@@ -42,16 +42,26 @@ function [n_samples,header,video_IDs,titles,channel_names,categories,tags,descri
     % Remover rows do dataset
     i = 1;
     j = 1;
-    while (i < length(AUX_indices)+1 & j < length(Calc_ind)+1)
-        if AUX_indices(i) < Calc_ind(j)
+    while i <= length(AUX_indices) || j <= length(Calc_ind)
+        if i > length(AUX_indices)
             Data_hist = [Data_hist ; Data(Calc_ind(j), :)];
-            Data(Calc_ind(j), :) = [];
+            Data(Calc_ind(j), : ) = [];
             j = j + 1;
+        elseif j > length(Calc_ind)
+            Data(AUX_indices(i), : ) = [];
+            i = i + 1; 
         else
-            Data(AUX_indices(i), :) = [];
-            i = i + 1;
+            if AUX_indices(i) < Calc_ind(j)
+                Data_hist = [Data_hist ; Data(Calc_ind(j), :)];
+                Data(Calc_ind(j), : ) = [];
+                j = j + 1;
+            else
+                Data(AUX_indices(i), : ) = [];
+                i = i + 1;
+            end
         end
-    end
+    end 
+
     
     % input i é irrelevante
     [irrelevante1,irrelevante2,irrelevante3,irrelevante4, Data] = NB_obter_palavras_unicas(true,false,i, i, i, Data);

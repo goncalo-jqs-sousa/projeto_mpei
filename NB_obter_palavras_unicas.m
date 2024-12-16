@@ -53,7 +53,7 @@ else
         palavras_descricao = {};
         documentos = {};
 
-        for i = 1:length(titles)
+        for i = 1:height(titles)
             titles{i} = lower(titles{i});
             titles{i} = regexprep(titles{i}, 'http[s]?://\S+', ' ');
             titles{i} = convertCharsToStrings(titles{i});
@@ -65,7 +65,7 @@ else
             aux_titulo = aux_titulo.';
             palavras_titulo{end+1} = {aux_titulo};
         end
-        for i = 1:length(descriptions)
+        for i = 1:height(descriptions)
             descriptions{i} = lower(descriptions{i});
             descriptions{i} = regexprep(descriptions{i}, 'http[s]?://\S+', ' ');
             descriptions{i} = convertCharsToStrings(descriptions{i});
@@ -145,7 +145,7 @@ else
         palavras_tag = {};
         documentos = {};
 
-        for i = 1:length(titles)
+        for i = 1:height(titles)
             titles{i} = lower(titles{i});
             titles{i} = regexprep(titles{i}, 'http[s]?://\S+', ' ');
             titles{i} = convertCharsToStrings(titles{i});
@@ -157,7 +157,7 @@ else
             aux_titulo = aux_titulo.';
             palavras_titulo{end+1} = {aux_titulo};
         end
-        for i = 1:length(descriptions)
+        for i = 1:height(descriptions)
             descriptions{i} = lower(descriptions{i});
             descriptions{i} = regexprep(descriptions{i}, 'http[s]?://\S+', ' ');
             descriptions{i} = convertCharsToStrings(descriptions{i});
@@ -169,7 +169,7 @@ else
             aux_descricao = aux_descricao.';
             palavras_descricao{end+1} = {aux_descricao};
         end
-        for i = 1:length(varargin{1})
+        for i = 1:height(varargin{1})
             varargin{1}{i} = lower(varargin{1}{i});
             varargin{1}{i} = regexprep(varargin{1}{i}, 'http[s]?://\S+', ' ');
             varargin{1}{i} = convertCharsToStrings(varargin{1}{i});
