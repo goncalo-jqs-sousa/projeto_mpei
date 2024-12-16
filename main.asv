@@ -113,19 +113,10 @@ fprintf(1,"Categoria calculada  em %.3fs\n",BF_time)
 
 % Implementação MinHash
 n_candidate_videos = 20;
-candidate_videos = NB_obter_dataset_treino(Data,[0],[category_number],n_candidate_videos)
-
-candidate_videos_titles = candidate_videos(:,3);
-
+NB_obter_dataset_treino(Data,[0],[category_number],n_candidate_videos)
 % Parametros Minhash
 k_shingle = 3;
 k = 100;
 prime = 9876803;
-d = {};
 
-for cv = 1: length(candidate_videos_titles)
-    d{end+1} = MH_distancia_minima(candidate_videos_titles,k_shingle,k,prime)
-end
-
-
-%distancias =  MH(recommended_category_titles_from_history,k_shingle,k,prime)
+distancias =  MH(recommended_category_titles_from_history,k_shingle,k,prime)

@@ -39,26 +39,17 @@ function [n_samples,header,video_IDs,titles,channel_names,categories,tags,descri
     AUX_indices = sort(AUX_indices, 'descend');
     Calc_ind = sort(Calc_ind, 'descend');
 
-    % Remover rows do dataset
-    i = 1;
+   % Remover rows do dataset
+    i = 1; 
     j = 1;
-    while i <= length(AUX_indices) || j <= length(Calc_ind)
-        if i > length(AUX_indices)
+    while (i < length(AUX_indices)+1 & j < length(Calc_ind)+1)
+        if AUX_indices(i) < Calc_ind(j)
             Data_hist = [Data_hist ; Data(Calc_ind(j), :)];
             Data(Calc_ind(j), : ) = [];
             j = j + 1;
-        elseif j > length(Calc_ind)
-            Data(AUX_indices(i), : ) = [];
-            i = i + 1; 
         else
-            if AUX_indices(i) < Calc_ind(j)
-                Data_hist = [Data_hist ; Data(Calc_ind(j), :)];
-                Data(Calc_ind(j), : ) = [];
-                j = j + 1;
-            else
-                Data(AUX_indices(i), : ) = [];
-                i = i + 1;
-            end
+            Data(AUX_indices(i), : ) = [];
+            i = i + 1;
         end
     end 
 

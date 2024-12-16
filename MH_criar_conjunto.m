@@ -3,6 +3,9 @@ function Set = MH_criar_conjunto(recommended_category_titles_from_history,k_shin
     nomes = recommended_category_titles_from_history;
     Set = {};
 
+    if height(nomes{1}) > 1
+        nomes = nomes{1}';
+    end
     for i = 1:length(nomes)
         Set{end+1} = nomes{1,i};
     end
@@ -10,7 +13,6 @@ function Set = MH_criar_conjunto(recommended_category_titles_from_history,k_shin
     for i = 1:length(nomes)
         string = char(nomes{i}{1});
         lista_shingles = {};
-        length(string)
         for pos = 1:length(string)-k_shingle+1
             shingle = string(pos:(pos+k_shingle-1));
             lista_shingles{end+1} = shingle;
