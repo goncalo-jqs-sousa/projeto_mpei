@@ -10,7 +10,7 @@ load_t_begin = cputime;
 
 %load("Dataset_reduzido.mat", 'Data');
 %load ('Dataset_historico', 'Data_hist');
-% load ('Dataset_historico', 'Data_hist');
+%load ('Dataset_historico', 'Data_hist');
 
 [hist_n_samples,hist_header,hist_video_IDs,...
  hist_titles,hist_channel_names,hist_categories,...
@@ -110,7 +110,7 @@ end
 fprintf(1,"Categoria recomendada: %s (%d)\n",recommended_category,views);
 BF_time = cputime - BF_t_begin;
 fprintf(1,"Categoria calculada  em %.3fs\n",BF_time)
-
+%%
 % Implementação MinHash
 n_candidate_videos = 20;
 candidate_videos = NB_obter_dataset_treino(Data,[0],[category_number],n_candidate_videos)
@@ -118,8 +118,8 @@ candidate_videos = NB_obter_dataset_treino(Data,[0],[category_number],n_candidat
 candidate_videos_titles = candidate_videos(:,3);
 
 % Parametros Minhash
-k_shingle = 3;
-k = 100;
+k_shingle = 10;
+k = 200;
 prime = 9876803;
 d = {};
 

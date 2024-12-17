@@ -3,11 +3,8 @@ function Set = MH_criar_conjunto(recommended_category_titles_from_history,k_shin
     nomes = recommended_category_titles_from_history;
     Set = {};
 
-    if height(nomes{1}) > 1
-        nomes = nomes{1}';
-    end
-    for i = 1:length(nomes)
-        Set{end+1} = nomes{1,i};
+    for i = 1:height(nomes)
+        Set{end+1} = nomes{i};
     end
     
     for i = 1:length(nomes)

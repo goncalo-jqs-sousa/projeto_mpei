@@ -8,7 +8,7 @@ function [J,Assinaturas] = calcular_distancia_MinHash_shingle(Set,k,R,prime)
             conjunto = Set{c};
             hash_codes = zeros(length(conjunto),1);
             for e = 1:length(conjunto)
-                shingle = conjunto{e}
+                shingle = conjunto{e};
                 hc = hash_function_shingle(shingle,i,R,prime);
                 hash_codes(e) = hc;
             end
